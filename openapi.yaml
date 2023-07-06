@@ -1,0 +1,93 @@
+openapi: '3.0.2'
+info:
+  title: NinjaAPI
+  version: '1.0.0'
+  description: ''
+paths:
+  /todos:
+    get:
+      operationId: todos_apis_get_todos
+      summary: Get Todos
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: Response
+                type: array
+                items:
+                  $ref: '#/components/schemas/Todo'
+    post:
+      operationId: todos_apis_add_todo
+      summary: Add Todo
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Todo'
+        required: true
+  /todos/{id}:
+    delete:
+      operationId: todos_apis_delete_todo
+      summary: Delete Todo
+      parameters:
+        - in: path
+          name: id
+          schema:
+            title: Id
+            type: integer
+          required: true
+      responses:
+        '200':
+          description: OK
+  /openapi.yaml:
+    get:
+      operationId: todos_apis_openapi_spec
+      summary: Openapi Spec
+      parameters: []
+      responses:
+        '200':
+          description: OK
+  /plugin/logo.png:
+    get:
+      operationId: todos_apis_plugin_logo
+      summary: Plugin Logo
+      parameters: []
+      responses:
+        '200':
+          description: OK
+  /.well-known/ai-plugin.json:
+    get:
+      operationId: todos_apis_plugin_manifest
+      summary: Plugin Manifest
+      parameters: []
+      responses:
+        '200':
+          description: OK
+components:
+  schemas:
+    Todo:
+      title: Todo
+      type: object
+      properties:
+        id:
+          title: Id
+          type: integer
+        task:
+          title: Task
+          type: string
+      required:
+        - id
+        - task
+servers:
+  - url: http://localhost:8000
